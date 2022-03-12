@@ -7,24 +7,44 @@ import {
   Input,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { cloneDeep } from "lodash";
+import React, { useCallback, useState } from "react";
 import Chat from "./components/Chat";
 import Sidebar from "./components/Sidebar";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SidebarHead from "./components/SidebarHead";
 import ChatHead from "./components/ChatHead";
-import { Box } from "@mui/system";
-import SmsIcon from "@mui/icons-material/Sms";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Search from "@mui/icons-material/Search";
 import NewChat from "./components/NewChat";
 import { AnimatePresence } from "framer-motion";
+import { chats } from "./chats";
+import { uuid } from "./uuid";
+import { useEffect } from "react";
 const App = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [chatId, setchatId] = useState();
+  const selectedChat = chats.find((item) => item.id === chatId);
+  const [selectedChatData, setSelectedChatData] = useState(selectedChat);
+  const [submitedMessage, setSubmitedMessage] = useState("");
+  const [adminChats, setAdminChats] = useState([]);
+
+  useEffect(() => {
+    console.log(adminChats);
+  }, [adminChats]);
+
   const submitHandler = (e) => {
     e.preventDefault();
+    if (submitedMessage && submitedMessage.trim().length > 0) {
+      setAdminChats((prev) => [
+        ...prev,
+        {
+          content: submitedMessage,
+          contentId: uuid(),
+          isAdmin: true,
+        },
+      ]);
+    }
+    setSubmitedMessage("");
   };
 
   const drawerHandler = () => setIsDrawerOpen((prev) => !prev);
@@ -44,7 +64,11 @@ const App = () => {
       {/***** Sidebar Section *****/}
 
       <Hidden smDown>
-        <Grid item sm={4} sx={{ position: "relative" }}>
+        <Grid
+          item
+          sm={4}
+          sx={{ position: "relative", borderRight: "1px solid gray" }}
+        >
           <AnimatePresence>
             {isDrawerOpen && (
               <NewChat
@@ -55,9 +79,8 @@ const App = () => {
           </AnimatePresence>
           <SidebarHead drawerHandler={drawerHandler} />
           <Grid item sx={{ overflowY: "auto", height: "93vh" }}>
-            <Sidebar />
+            <Sidebar setChatId={setchatId} />
           </Grid>
-          
         </Grid>
       </Hidden>
 
@@ -71,7 +94,11 @@ const App = () => {
         <Grid item>
           <ChatHead />
           <Grid item sx={{ overflow: "scroll", height: "100vh" }}>
-            <Chat />
+            <Chat
+              selectedChatData={selectedChatData}
+              adminChats={adminChats}
+              chatId={chatId}
+            />
           </Grid>
         </Grid>
         <Grid
@@ -84,6 +111,7 @@ const App = () => {
             bottom: 0,
             background: "#d1d1d1",
             height: "50px",
+            display: !chatId && "none",
           }}
         >
           <Grid item xs={1.3}>
@@ -98,6 +126,8 @@ const App = () => {
           </Grid>
           <Grid item xs={9.2}>
             <Input
+              value={submitedMessage}
+              onChange={(e) => setSubmitedMessage(e.target.value)}
               fullWidth
               disableUnderline
               sx={{ background: "#fff", borderRadius: "15px", p: "3px" }}

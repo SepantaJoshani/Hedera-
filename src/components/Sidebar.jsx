@@ -1,18 +1,22 @@
-import { Avatar, Divider, Grid, Hidden, Typography } from "@mui/material";
-import React from "react";
+import { Avatar, Divider, Grid, Typography } from "@mui/material";
+import React, { Fragment } from "react";
+import { chats } from "../chats";
 
-const myArrary = [
-  1, 2, 3, 4, 5, 7, 81, 2, 3, 4, 5, 7, 8, 1, 2, 3, 4, 5, 7, 8, 1, 2, 3, 4, 5, 7,
-  8, 1, 2, 3, 4, 5, 7, 8, 1, 2, 3, 4, 5, 7, 8, 8, 1, 2, 3, 4, 5, 7, 8, 1, 2, 3,
-  4, 5, 7, 8, 8, 1, 2, 3, 4, 5, 7, 8, 1, 2, 3, 4, 5, 7, 8, 8, 1, 2, 3, 4, 5, 7,
-  8, 1, 2, 3, 4, 5, 7, 8,
-];
+const sortByName = function (a, b) {
+  if (a.username < b.username) {
+    return -1;
+  }
+  if (a.username > b.username) {
+    return 1;
+  }
+  return 0;
+};
 
-const Sidebar = () => {
+const Sidebar = ({ setChatId }) => {
   return (
     <Grid container direction="column">
-      {myArrary.map((item, index) => (
-        <>
+      {chats.sort(sortByName).map(({ id, message, username }, index) => (
+        <Fragment key={id + index}>
           <Divider
             variant={index === 0 ? "fullWidth" : "inset"}
             sx={{ position: "relative", right: index !== 0 && 30 }}
@@ -29,19 +33,22 @@ const Sidebar = () => {
                 background: "gray",
               },
             }}
+            onClick={() => {
+              console.log(id);
+              setChatId(id);
+            }}
           >
             {/* Avatar Part */}
 
-            <Grid item sx={2}>
-              <Avatar>N</Avatar>
+            <Grid item>
+              <Avatar>{username.charAt(0)}</Avatar>
             </Grid>
 
             {/* Message & the rest */}
             <Grid item xs={10}>
               <Grid item container direaction="column">
                 <Grid item container>
-                  {" "}
-                  Shonqol
+                  {username}
                 </Grid>
                 <Grid item container>
                   <Typography
@@ -52,14 +59,13 @@ const Sidebar = () => {
                     }}
                     variant="body1"
                   >
-                    Salam chetori chekhabar chika mikoni nmidonam el
-                    belasdsdadas
+                    {message[0].content}
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </>
+        </Fragment>
       ))}
     </Grid>
   );
