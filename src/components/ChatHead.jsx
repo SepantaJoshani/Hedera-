@@ -2,8 +2,7 @@ import React from "react";
 import { Avatar, Grid, IconButton, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-
-const ChatHead = () => {
+const ChatHead = ({ selectedChat }) => {
   return (
     <Grid item>
       <Grid
@@ -15,8 +14,10 @@ const ChatHead = () => {
       >
         <Grid item>
           <Grid item container alignItems="center" columnGap={1}>
-            <Avatar>N</Avatar>
-            <Typography variant="body1">Contact Name</Typography>
+            <Avatar>{selectedChat && selectedChat.username.charAt(0)}</Avatar>
+            <Typography variant="body1">
+              {selectedChat && selectedChat.username}
+            </Typography>
           </Grid>
         </Grid>
         <Grid item>

@@ -12,7 +12,7 @@ const sortByName = function (a, b) {
   return 0;
 };
 
-const Sidebar = ({ setChatId }) => {
+const Sidebar = ({ setSelectedChat }) => {
   return (
     <Grid container direction="column">
       {chats.sort(sortByName).map(({ id, message, username }, index) => (
@@ -34,8 +34,8 @@ const Sidebar = ({ setChatId }) => {
               },
             }}
             onClick={() => {
-              console.log(id);
-              setChatId(id);
+              const currentChat = chats.find((chat) => chat.id === id);
+              setSelectedChat(currentChat);
             }}
           >
             {/* Avatar Part */}

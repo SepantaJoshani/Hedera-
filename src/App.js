@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Grid,
-  Hidden,
-  IconButton,
-  Input,
-  Typography,
-} from "@mui/material";
+import { Avatar, Button, Grid, Hidden, IconButton, Input } from "@mui/material";
 import { cloneDeep } from "lodash";
 import React, { useCallback, useState } from "react";
 import Chat from "./components/Chat";
@@ -20,31 +12,29 @@ import { AnimatePresence } from "framer-motion";
 import { chats } from "./chats";
 import { uuid } from "./uuid";
 import { useEffect } from "react";
+
 const App = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [chatId, setchatId] = useState();
-  const selectedChat = chats.find((item) => item.id === chatId);
-  const [selectedChatData, setSelectedChatData] = useState(selectedChat);
+
+  const [selectedChat, setSelectedChat] = useState();
+  console.log(selectedChat);
+  // const selectedChat = chats.find((item) => item.id === chatId);
+
   const [submitedMessage, setSubmitedMessage] = useState("");
   const [adminChats, setAdminChats] = useState([]);
-
-  useEffect(() => {
-    console.log(adminChats);
-  }, [adminChats]);
+  const [finalMessages, setFinalMessages] = useState([]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (submitedMessage && submitedMessage.trim().length > 0) {
-      setAdminChats((prev) => [
-        ...prev,
-        {
-          content: submitedMessage,
-          contentId: uuid(),
-          isAdmin: true,
-        },
-      ]);
+      selectedChat.message.push({
+        content: submitedMessage,
+        contentId: uuid(),
+        isAdmin: true,
+      });
+
+      setSubmitedMessage("");
     }
-    setSubmitedMessage("");
   };
 
   const drawerHandler = () => setIsDrawerOpen((prev) => !prev);
@@ -79,7 +69,7 @@ const App = () => {
           </AnimatePresence>
           <SidebarHead drawerHandler={drawerHandler} />
           <Grid item sx={{ overflowY: "auto", height: "93vh" }}>
-            <Sidebar setChatId={setchatId} />
+            <Sidebar setSelectedChat={setSelectedChat} />
           </Grid>
         </Grid>
       </Hidden>
@@ -92,12 +82,12 @@ const App = () => {
         sx={{ height: "100vh", position: "relative", width: "100%" }}
       >
         <Grid item>
-          <ChatHead />
+          {selectedChat && <ChatHead selectedChat={selectedChat} />}
           <Grid item sx={{ overflow: "scroll", height: "100vh" }}>
             <Chat
-              selectedChatData={selectedChatData}
               adminChats={adminChats}
-              chatId={chatId}
+              selectedChat={selectedChat}
+              finalMessages={finalMessages}
             />
           </Grid>
         </Grid>
@@ -111,7 +101,7 @@ const App = () => {
             bottom: 0,
             background: "#d1d1d1",
             height: "50px",
-            display: !chatId && "none",
+            display: !selectedChat && "none",
           }}
         >
           <Grid item xs={1.3}>

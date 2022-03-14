@@ -1,37 +1,22 @@
 import { Grid, Typography } from "@mui/material";
-import { useState } from "react";
-import { useEffect } from "react";
+
 import { chats } from "../chats";
 
-const Chat = ({ chatId, selectedChatData, adminChats }) => {
-  const selectedChat = chats.find((chat) => chat.id === chatId);
-  const [myChatId, setMyChatId] = useState();
-  const [finalMessage, setFinalMessage] = useState([]);
+const Chat = ({ selectedChat }) => {
 
-  useEffect(() => {
-    setMyChatId(chatId);
-    console.log(adminChats);
-    if (selectedChat) {
-      const ohtersMessage = selectedChat.message;
-      if (adminChats) {
-        const bothMessages = ohtersMessage.concat(adminChats);
-        setFinalMessage(bothMessages);
-      }
-    }
-  }, [chatId, adminChats, selectedChat]);
 
   return (
     <Grid
       container
       direction="column"
-      sx={{ maxWidth: 650, mx: myChatId ? "auto" : 0 }}
+      sx={{ maxWidth: 650, mx: selectedChat ? "auto" : 0 }}
     >
-      {!myChatId ? (
+      {!selectedChat ? (
         <p>Please Select a Chat</p>
-      ) : finalMessage ? (
-        finalMessage.map((item, index) => (
+      ) : selectedChat ? (
+        selectedChat.message.map((item, index) => (
           <Grid
-            key={item.contentId}
+            key={Math.random()}
             container
             justifyContent={item.isAdmin ? "start" : "flex-end"}
           >
@@ -44,7 +29,7 @@ const Chat = ({ chatId, selectedChatData, adminChats }) => {
                 py: 1.5,
                 borderRadius: "10px",
                 my: 1,
-
+                ml: item.isAdmin ? 2 : 0,
                 maxWidth: 350,
               }}
             >
@@ -53,32 +38,38 @@ const Chat = ({ chatId, selectedChatData, adminChats }) => {
           </Grid>
         ))
       ) : (
-        selectedChat.message.map((item, index) => (
-          <Grid
-            key={item.contentId}
-            container
-            justifyContent={item.isAdmin ? "start" : "flex-end"}
-          >
-            <Grid
-              item
-              sx={{
-                bgcolor: item.isAdmin ? "primary.main" : "pink",
-                pl: 1,
-                pr: 3,
-                py: 1.5,
-                borderRadius: "10px",
-                my: 1,
-
-                maxWidth: 350,
-              }}
-            >
-              <Typography variant="body2">{item.content}</Typography>
-            </Grid>
-          </Grid>
-        ))
+        <p>hichi</p>
       )}
     </Grid>
   );
 };
 
 export default Chat;
+
+// const final =  : finalMessage  ? (
+//   finalMessage.message.map((item, index) => (
+//     <Grid
+//       key={item.contentId}
+//       container
+//       justifyContent={item.isAdmin ? "start" : "flex-end"}
+//     >
+//       <Grid
+//         item
+//         sx={{
+//           bgcolor: item.isAdmin ? "primary.main" : "pink",
+//           pl: 1,
+//           pr: 3,
+//           py: 1.5,
+//           borderRadius: "10px",
+//           my: 1,
+
+//           maxWidth: 350,
+//         }}
+//       >
+//         <Typography onClick={() => console.log(item)} variant="body2">
+//           {item.content}
+//         </Typography>
+//       </Grid>
+//     </Grid>
+//   ))
+// )

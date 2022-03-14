@@ -9,7 +9,7 @@ export const chats = [
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
 
-    id: uuid(),
+    id: "c1",
   },
   {
     username: "Adam",
@@ -18,7 +18,7 @@ export const chats = [
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: 'c25',
   },
 
   {
@@ -28,7 +28,7 @@ export const chats = [
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c2",
   },
   {
     username: "Fredrick ",
@@ -37,7 +37,7 @@ export const chats = [
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c3",
   },
   {
     username: "Eva",
@@ -46,7 +46,7 @@ export const chats = [
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c4",
   },
   {
     username: "Golem",
@@ -55,7 +55,7 @@ export const chats = [
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c5",
   },
 
   {
@@ -65,7 +65,7 @@ export const chats = [
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c6",
   },
   {
     username: "Jake",
@@ -74,7 +74,7 @@ export const chats = [
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c7",
   },
   {
     username: "Cidney",
@@ -83,7 +83,7 @@ export const chats = [
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c9",
   },
   {
     username: "Mark",
@@ -92,12 +92,11 @@ export const chats = [
         content: "Hi Mark Cidney ",
         contentId: uuid(),
         isAdmin: false,
-        isAdmin: false,
       },
       { content: "How are U ? ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c10",
   },
   {
     username: "Mandy",
@@ -106,7 +105,7 @@ export const chats = [
       { content: "نوکرم ؟ ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c11",
   },
   {
     username: "Lilly",
@@ -115,7 +114,7 @@ export const chats = [
       { content: "نوکرم ؟ ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c12",
   },
   {
     username: "Megan",
@@ -124,6 +123,19 @@ export const chats = [
       { content: "نوکرم ؟ ", contentId: uuid(), isAdmin: false },
       { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
     ],
-    id: uuid(),
+    id: "c13",
+  },
+  {
+    username: "Shonqol",
+    message: [
+      { content: "Hi Im Megan ", contentId: uuid(), isAdmin: false },
+      {
+        content: "قربونت برم هفته به هفته، بوس اخرت یادم نرفته  ",
+        contentId: uuid(),
+        isAdmin: true,
+      },
+      { content: "Is everything fine? ", contentId: uuid(), isAdmin: false },
+    ],
+    id: "c14",
   },
 ];
